@@ -1,6 +1,6 @@
 {
   "name": "sass-utilities",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A collection of Sass classes, functions, mixins, and other utilities",
   "author": "John Hildenbiddle <http://hildenbiddle.com>",
   "license": "MIT",
@@ -27,10 +27,10 @@
   ],
   "main": "__import.scss",
   "scripts": {
-    "prepare" : "npm run build",
-    "build"   : "sassdoc **/*.scss",
-    "start"   : "npm run build",
-    "version" : "npm run build && git add -A docs"
+    "prepare": "npm run build",
+    "build": "sassdoc **/*.scss",
+    "start": "npm run build",
+    "version": "npm run build && git add -A docs"
   },
   "devDependencies": {
     "sassdoc": "^2.5.0"
