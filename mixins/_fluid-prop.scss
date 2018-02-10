@@ -1,0 +1,37 @@
+/// Fluid viewport-based property values with min/max values
+///
+/// @author John Hildenbiddle
+/// @author Eduardo Boucas (@eduardoboucas) - initial concept (see link)
+/// @link https://css-tricks.com/snippets/sass/viewport-sized-typography-minimum-maximum-sizes/ Viewport Sized Typography with Minimum and Maximum Sizes (css-tricks.com)
+/// @link https://codepen.io/aaronbarker/full/zZroxL Concept visualizer (codepen.io)
+///
+/// @param {Number} $fluid - Viewport-based size (vh|vw)
+/// @param {Number} $min   - Minimum property value (px|rem)
+/// @param {Number} $max   - Maximum property value (px|rem) (optional)
+///
+/// @example scss - px .myclass {
+///   @include fluid-prop(font-size, 5vw, 16px, 48px);
+/// }
+///
+/// @example scss - rem .myclass {
+///   @include fluid-prop(font-size, 5vw, 1rem, 3rem);
+/// }
+@mixin fluid-prop($property, $fluid, $min, $max: false) {
+    $fluid-unitless: $fluid / ($fluid * 0 + 1);
+    $dimension     : if(unit($fluid) == 'vh', 'height', 'width');
+    $min-breakpoint: if(unit($min) == 'rem', $min / ($min * 0 + 1) * 1em, $min) / $fluid-unitless * 100;
+
+    @media (max-#{$dimension}: #{$min-breakpoint}) {
+        #{$property}: $min;
+    }
+
+    @if $max {
+        $max-breakpoint: if(unit($max) == 'rem', $max / ($max * 0 + 1) * 1em, $max) / $fluid-unitless * 100;
+
+        @media (min-#{$dimension}: #{$max-breakpoint}) {
+            #{$property}: $max;
+        }
+    }
+
+    #{$property}: $fluid;
+}

@@ -1,0 +1,4 @@
+basePath: "https://github.com/jhildenbiddle/sass-utilities/tree/master"
+dest: docs
+display:
+    access: ["public"]

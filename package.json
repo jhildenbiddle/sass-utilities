@@ -1,0 +1,38 @@
+{
+  "name": "sass-utilities",
+  "version": "0.0.0",
+  "description": "A collection of Sass classes, functions, mixins, and other utilities",
+  "author": "John Hildenbiddle <http://hildenbiddle.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/jhildenbiddle/sass-utilities",
+  "repository": {
+    "type": "git",
+    "url": "git+https://jhildenbiddle@github.com/jhildenbiddle/sass-utilities.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jhildenbiddle/sass-utilities/issues"
+  },
+  "keywords": [
+    "mixin",
+    "mixins",
+    "function",
+    "functions",
+    "helper",
+    "helpers",
+    "sass",
+    "scss",
+    "util",
+    "utils",
+    "utilities"
+  ],
+  "main": "__import.scss",
+  "scripts": {
+    "prepare" : "npm run build",
+    "build"   : "sassdoc **/*.scss",
+    "start"   : "npm run build",
+    "version" : "npm run build && git add -A dist"
+  },
+  "devDependencies": {
+    "sassdoc": "^2.5.0"
+  }
+}
