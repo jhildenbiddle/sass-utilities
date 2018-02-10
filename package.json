@@ -30,7 +30,7 @@
     "prepare" : "npm run build",
     "build"   : "sassdoc **/*.scss",
     "start"   : "npm run build",
-    "version" : "npm run build && git add -A dist"
+    "version" : "npm run build && git add -A docs"
   },
   "devDependencies": {
     "sassdoc": "^2.5.0"
