@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /// URL-encode SVG markup for use as inline CSS content/uri
 ///
 /// @author Jakob Eriksen
@@ -5,11 +7,12 @@
 ///
 /// @param  {String} $svg - SVG markup to encode
 /// @return {String}      - URL-encoded SVG data uri
+
 @function svg-data-uri($svg) {
     $encoded: '';
     $slice: 2000;
     $index: 0;
-    $loops: ceil(str-length($svg) / $slice);
+    $loops: ceil(math.div(str-length($svg), $slice));
 
     @for $i from 1 through $loops {
         $chunk: str-slice($svg, $index, $index + $slice - 1);
