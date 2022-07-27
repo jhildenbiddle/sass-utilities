@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /// Fluid viewport-based property values with min/max values
 ///
 /// @author John Hildenbiddle
@@ -17,16 +19,16 @@
 ///   @include fluid-prop(font-size, 5vw, 1rem, 3rem);
 /// }
 @mixin fluid-prop($property, $fluid, $min, $max: false) {
-    $fluid-unitless: $fluid / ($fluid * 0 + 1);
-    $dimension     : if(unit($fluid) == 'vh', 'height', 'width');
-    $min-breakpoint: if(unit($min) == 'rem', $min / ($min * 0 + 1) * 1em, $min) / $fluid-unitless * 100;
+    $fluid-unitless: math.div($fluid, $fluid * 0 + 1);
+    $dimension     : if(math.unit($fluid) == 'vh', 'height', 'width');
+    $min-breakpoint: math.div(if(math.unit($min) == 'rem', math.div($min, $min * 0 + 1) * 1em, $min), $fluid-unitless) * 100;
 
     @media (max-#{$dimension}: #{$min-breakpoint}) {
         #{$property}: $min;
     }
 
     @if $max {
-        $max-breakpoint: if(unit($max) == 'rem', $max / ($max * 0 + 1) * 1em, $max) / $fluid-unitless * 100;
+        $max-breakpoint: math.div(if(math.unit($max) == 'rem', math.div($max, $max * 0 + 1) * 1em, $max), $fluid-unitless) * 100;
 
         @media (min-#{$dimension}: #{$max-breakpoint}) {
             #{$property}: $max;

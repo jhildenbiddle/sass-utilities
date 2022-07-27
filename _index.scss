@@ -1,5 +1,4 @@
-// Mixins
+// Suite
 // =============================================================================
-@import "fluid-prop";
-@import "mq";
-@import "triangle";
+@forward "functions";
+@forward "mixins";

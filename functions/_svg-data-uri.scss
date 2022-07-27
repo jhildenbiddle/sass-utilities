@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "sass:string";
+
 /// URL-encode SVG markup for use as inline CSS content/uri
 ///
 /// @author Jakob Eriksen
@@ -9,10 +12,10 @@
     $encoded: '';
     $slice: 2000;
     $index: 0;
-    $loops: ceil(str-length($svg) / $slice);
+    $loops: math.ceil(math.div(string.length($svg), $slice));
 
     @for $i from 1 through $loops {
-        $chunk: str-slice($svg, $index, $index + $slice - 1);
+        $chunk: string.slice($svg, $index, $index + $slice - 1);
         $chunk: _svg-data-uri-str-replace($chunk, '"', "'");
         $chunk: _svg-data-uri-str-replace($chunk, '<', '%3C');
         $chunk: _svg-data-uri-str-replace($chunk, '>', '%3E');
@@ -38,10 +41,10 @@
 /// @param  {String} $replace [''] - New value
 /// @return {String}               - Updated string
 @function _svg-data-uri-str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
+    $index: string.index($string, $search);
 
     @if $index {
-        @return str-slice($string, 1, $index - 1) + $replace + _svg-data-uri-str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+        @return string.slice($string, 1, $index - 1) + $replace + _svg-data-uri-str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
     }
 
     @return $string;

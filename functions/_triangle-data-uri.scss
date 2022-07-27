@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "sass:math";
+@use "sass:meta";
+
 /// Generates a triangle SVG element and applies it as a background image.
 ///
 /// @author John Hildenbiddle (@jhildenbiddle)
@@ -31,28 +35,28 @@
     }
 
     // Strip units
-    $width : $width / ($width * 0 + 1);
-    $height: $height / ($height * 0 + 1);
+    $width : math.div($width, $width * 0 + 1);
+    $height: math.div($height, $height * 0 + 1);
 
     // Convert color to RGB
-    @if type-of($color) == color {
-        $color: 'rgb%28#{red($color)}, #{green($color)}, #{blue($color)}%29';
+    @if meta.type-of($color) == color {
+        $color: 'rgb%28#{color.red($color)}, #{color.green($color)}, #{color.blue($color)}%29';
     }
 
     // Polygon points
     $polygon-points: '';
 
     @if $direction == up {
-        $polygon-points: '0,#{$height} #{$width},#{$height} #{$width / 2},0';
+        $polygon-points: '0,#{$height} #{$width},#{$height} #{$width * 0.5},0';
     }
     @else if $direction == down {
-        $polygon-points: '0,0 #{$width},0 #{$width / 2},#{$height}';
+        $polygon-points: '0,0 #{$width},0 #{$width * 0.5},#{$height}';
     }
     @else if $direction == right {
-        $polygon-points: '0,0 0,#{$height} #{$width},#{$height / 2}';
+        $polygon-points: '0,0 0,#{$height} #{$width},#{$height * 0.5}';
     }
     @else if $direction == left {
-        $polygon-points: '#{$width},0 #{$width},#{$height} 0,#{$height / 2}';
+        $polygon-points: '#{$width},0 #{$width},#{$height} 0,#{$height * 0.5}';
     }
 
     @if $polygon-points == '' {

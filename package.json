@@ -25,7 +25,7 @@
     "utils",
     "utilities"
   ],
-  "main": "__import.scss",
+  "main": "_index.scss",
   "scripts": {
     "prepare": "npm run build",
     "build": "sassdoc **/*.scss",
@@ -33,6 +33,7 @@
     "version": "npm run build && git add -A docs"
   },
   "devDependencies": {
-    "sassdoc": "^2.5.0"
+    "sass": "^1.54.0",
+    "sassdoc": "^2.7.4"
   }
 }

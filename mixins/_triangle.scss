@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /// Converts an element to an up, down, left or right triangle. This method of
 /// rendering a triangle allows CSS animations and transitions to be applied
 /// to triangle properties.
@@ -21,8 +23,8 @@
     }
 
     // Default to px for unitless values
-    $width : if(unitless($width), $width * 1px, $width);
-    $height: if(unitless($height), $height * 1px, $height);
+    $width : if(math.is-unitless($width), $width * 1px, $width);
+    $height: if(math.is-unitless($height), $height * 1px, $height);
 
     content: '';
     width: 0;
@@ -31,24 +33,24 @@
     @if $direction == "up" {
         border-top: 0;
         border-bottom: $height solid $color;
-        border-left: ($width / 2) solid transparent;
-        border-right: ($width / 2) solid transparent;
+        border-left: ($width * 0.5) solid transparent;
+        border-right: ($width * 0.5) solid transparent;
     }
     @else if $direction == "down" {
         border-top: $height solid $color;
         border-bottom: 0;
-        border-left: ($width / 2) solid transparent;
-        border-right: ($width / 2) solid transparent;
+        border-left: ($width * 0.5) solid transparent;
+        border-right: ($width * 0.5) solid transparent;
     }
     @else if $direction == "left" {
-        border-top: ($height / 2) solid transparent;
-        border-bottom: ($height / 2) solid transparent;
+        border-top: ($height * 0.5) solid transparent;
+        border-bottom: ($height * 0.5) solid transparent;
         border-left: 0;
         border-right: $width solid $color;
     }
     @else if $direction == "right" {
-        border-top: ($height / 2) solid transparent;
-        border-bottom: ($height / 2) solid transparent;
+        border-top: ($height * 0.5) solid transparent;
+        border-bottom: ($height * 0.5) solid transparent;
         border-left: $width solid $color;
         border-right: 0;
     }

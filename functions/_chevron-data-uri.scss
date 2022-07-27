@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "sass:math";
+@use "sass:meta";
+
 /// Generate URL-encoded chevron SVG and return as CSS url() value
 ///
 /// @author John Hildenbiddle (@jhildenbiddle)
@@ -42,13 +46,13 @@
     }
 
     // Strip units
-    $width : $width / ($width * 0 + 1);
-    $height: $height / ($height * 0 + 1);
-    $stroke: $stroke / ($stroke * 0 + 1);
+    $width : math.div($width, $width * 0 + 1);
+    $height: math.div($height, $height * 0 + 1);
+    $stroke: math.div($stroke, $stroke * 0 + 1);
 
     // Convert color to RGB
-    @if type-of($color) == color {
-        $color: 'rgb%28#{red($color)}, #{green($color)}, #{blue($color)}%29';
+    @if meta.type-of($color) == color {
+        $color: 'rgb%28#{color.red($color)}, #{color.green($color)}, #{color.blue($color)}%29';
     }
 
     // Stroke linecap and linejoin
@@ -59,16 +63,16 @@
     $path-d: '';
 
     @if $direction == up {
-        $path-d: 'M#{$stroke} #{$height - $stroke}l#{($width / 2) - $stroke} -#{$height - ($stroke * 2)} #{($width / 2) - $stroke} #{$height - ($stroke * 2)}';
+        $path-d: 'M#{$stroke} #{$height - $stroke}l#{($width * 0.5) - $stroke} -#{$height - ($stroke * 2)} #{($width * 0.5) - $stroke} #{$height - ($stroke * 2)}';
     }
     @else if $direction == down {
-        $path-d: 'M#{$stroke $stroke}l#{($width / 2) - $stroke} #{$height - ($stroke * 2)} #{($width / 2) - $stroke}-#{$height - ($stroke * 2)}';
+        $path-d: 'M#{$stroke $stroke}l#{($width * 0.5) - $stroke} #{$height - ($stroke * 2)} #{($width * 0.5) - $stroke}-#{$height - ($stroke * 2)}';
     }
     @else if $direction == right {
-        $path-d: 'M#{$stroke} #{$stroke}l#{$width - ($stroke * 2)} #{($height / 2) - $stroke} -#{$width - ($stroke * 2)} #{($height / 2) - $stroke}';
+        $path-d: 'M#{$stroke} #{$stroke}l#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke} -#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke}';
     }
     @else if $direction == left {
-        $path-d: 'M#{$width - $stroke} #{$stroke}l-#{$width - ($stroke * 2)} #{($height / 2) - $stroke} #{$width - ($stroke * 2)} #{($height / 2) - $stroke}';
+        $path-d: 'M#{$width - $stroke} #{$stroke}l-#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke} #{$width - ($stroke * 2)} #{($height * 0.5) - $stroke}';
     }
 
     @if $path-d == '' {

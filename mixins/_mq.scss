@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+
 /// Default breakpoint map for mq() mixin
 $mq-breakpoints: (
     xsmall : 26em, // 416px / phone @ portrait
@@ -53,15 +56,15 @@ $mq-breakpoints: (
 ///   }
 /// }
 @mixin mq($mq-list, $mq-map: $mq-breakpoints) {
-    $mq-feature   : if(length($mq-list) == 2, nth($mq-list, 1), min-width);
-    $mq-breakpoint: if(length($mq-list) == 2, nth($mq-list, 2), $mq-list);
+    $mq-feature   : if(list.length($mq-list) == 2, list.nth($mq-list, 1), min-width);
+    $mq-breakpoint: if(list.length($mq-list) == 2, list.nth($mq-list, 2), $mq-list);
     $mq           : false;
 
     @if $mq-breakpoint == landscape or $mq-breakpoint == portrait {
         $mq: "(orientation: #{$mq-breakpoint})";
     }
-    @else if map-has-key($mq-map, $mq-breakpoint) {
-        $mq: "(#{$mq-feature}: #{map-get($mq-map, $mq-breakpoint)})";
+    @else if map.has-key($mq-map, $mq-breakpoint) {
+        $mq: "(#{$mq-feature}: #{map.get($mq-map, $mq-breakpoint)})";
     }
 
     @if $mq {
