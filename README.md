@@ -36,21 +36,23 @@ npm install sass-utilities
 
 This library is available on [jsdelivr](https://www.jsdelivr.com/package/npm/sass-utilities) (below), [unpkg](https://unpkg.com/browse/sass-utilities/), and other CDN services that auto-publish npm packages.
 
+> 💡 Note the `@` version number lock in the URLs below. This prevents breaking changes in future releases from affecting your project and is therefore the safest method of loading dependencies from a CDN. When a new major version is released, you will need to manually update your CDN URLs by changing the version number after the @ symbol.
+
 ```scss
 // All utilities
-@use "https://cdn.jsdelivr.net/npm/sass-utilities@0";
+@use "https://cdn.jsdelivr.net/npm/sass-utilities@1";
 
 // All functions
-@use "https://cdn.jsdelivr.net/npm/sass-utilities@0/functions";
+@use "https://cdn.jsdelivr.net/npm/sass-utilities@1/functions";
 
 // All mixins
-@use "https://cdn.jsdelivr.net/npm/sass-utilities@0/mixins";
+@use "https://cdn.jsdelivr.net/npm/sass-utilities@1/mixins";
 
 // Single function
-@use "https://cdn.jsdelivr.net/npm/sass-utilities@0/functions/_file-name";
+@use "https://cdn.jsdelivr.net/npm/sass-utilities@1/functions/_file-name";
 
 // Single mixin
-@use "https://cdn.jsdelivr.net/npm/sass-utilities@0/mixins/_file-name";
+@use "https://cdn.jsdelivr.net/npm/sass-utilities@1/mixins/_file-name";
 ```
 
 **Git**
