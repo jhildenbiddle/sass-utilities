@@ -21,13 +21,13 @@
     }
 
     // Strip units
-    $width : $width / ($width * 0 + 1);
-    $height: $height / ($height * 0 + 1);
-    $stroke: $stroke / ($stroke * 0 + 1);
+    $width : math.div($width, $width * 0 + 1);
+    $height: math.div($height, $height * 0 + 1);
+    $stroke: math.div($stroke, $stroke * 0 + 1);
 
     // Convert color to RGB
-    @if type-of($color) == color {
-        $color: &#39;rgb%28#{red($color)}, #{green($color)}, #{blue($color)}%29&#39;;
+    @if meta.type-of($color) == color {
+        $color: &#39;rgb%28#{color.red($color)}, #{color.green($color)}, #{color.blue($color)}%29&#39;;
     }
 
     // Stroke linecap and linejoin
@@ -38,16 +38,16 @@
     $path-d: &#39;&#39;;
 
     @if $direction == up {
-        $path-d: &#39;M#{$stroke} #{$height - $stroke}l#{($width / 2) - $stroke} -#{$height - ($stroke * 2)} #{($width / 2) - $stroke} #{$height - ($stroke * 2)}&#39;;
+        $path-d: &#39;M#{$stroke} #{$height - $stroke}l#{($width * 0.5) - $stroke} -#{$height - ($stroke * 2)} #{($width * 0.5) - $stroke} #{$height - ($stroke * 2)}&#39;;
     }
     @else if $direction == down {
-        $path-d: &#39;M#{$stroke $stroke}l#{($width / 2) - $stroke} #{$height - ($stroke * 2)} #{($width / 2) - $stroke}-#{$height - ($stroke * 2)}&#39;;
+        $path-d: &#39;M#{$stroke $stroke}l#{($width * 0.5) - $stroke} #{$height - ($stroke * 2)} #{($width * 0.5) - $stroke}-#{$height - ($stroke * 2)}&#39;;
     }
     @else if $direction == right {
-        $path-d: &#39;M#{$stroke} #{$stroke}l#{$width - ($stroke * 2)} #{($height / 2) - $stroke} -#{$width - ($stroke * 2)} #{($height / 2) - $stroke}&#39;;
+        $path-d: &#39;M#{$stroke} #{$stroke}l#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke} -#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke}&#39;;
     }
     @else if $direction == left {
-        $path-d: &#39;M#{$width - $stroke} #{$stroke}l-#{$width - ($stroke * 2)} #{($height / 2) - $stroke} #{$width - ($stroke * 2)} #{($height / 2) - $stroke}&#39;;
+        $path-d: &#39;M#{$width - $stroke} #{$stroke}l-#{$width - ($stroke * 2)} #{($height * 0.5) - $stroke} #{$width - ($stroke * 2)} #{($height * 0.5) - $stroke}&#39;;
     }
 
     @if $path-d == &#39;&#39; {
@@ -57,7 +57,7 @@
         // Unencoded SVG: &lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;#{$width}&#39; height=&#39;#{$height}&#39; viewBox=&#39;0 0 #{$width} #{$height}&#39;&gt;&lt;path d=&#39;#{$path-d}&#39; stroke-width=&#39;#{$stroke}&#39; stroke=&#39;#{$color}&#39; fill=&#39;none&#39; stroke-linecap=&#39;#{$linecap}&#39; stroke-linejoin=&#39;#{$linejoin}&#39; vector-effect=&#39;non-scaling-stroke&#39;/&gt;&lt;/svg&gt;
         @return url(&quot;data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;#{$width}&#39; height=&#39;#{$height}&#39; viewBox=&#39;0 0 #{$width} #{$height}&#39;%3E%3Cpath d=&#39;#{$path-d}&#39; stroke-width=&#39;#{$stroke}&#39; stroke=&#39;#{$color}&#39; fill=&#39;none&#39; stroke-linecap=&#39;#{$linecap}&#39; stroke-linejoin=&#39;#{$linejoin}&#39; vector-effect=&#39;non-scaling-stroke&#39;/%3E%3C/svg%3E&quot;);
     }
- }" data-collapsed="@function chevron-data-uri($direction, $width: 16px, $height: 10px, $stroke: 1.5px, $color: black, $round: false) { ... }"><code>@function chevron-data-uri($direction, $width: 16px, $height: 10px, $stroke: 1.5px, $color: black, $round: false) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_chevron-data-uri.scss#L23-L81" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generate URL-encoded chevron SVG and return as CSS url() value</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of chevron</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>10px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$stroke</code></th><td data-label="desc"><p>Stroke width of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>1.5px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of chevron</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code class="color-preview--inline" style="background:black; color: #fff">black</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$round</code></th><td data-label="desc"><p>Round stroke linecap and linejoin</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default"><code>false</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.myclass {
+ }" data-collapsed="@function chevron-data-uri($direction, $width: 16px, $height: 10px, $stroke: 1.5px, $color: black, $round: false) { ... }"><code>@function chevron-data-uri($direction, $width: 16px, $height: 10px, $stroke: 1.5px, $color: black, $round: false) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_chevron-data-uri.scss#L27-L85" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generate URL-encoded chevron SVG and return as CSS url() value</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of chevron</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>10px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$stroke</code></th><td data-label="desc"><p>Stroke width of chevron (px)</p></td><td data-label="type"><code>Number</code></td><td data-label="default"><code>1.5px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of chevron</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code class="color-preview--inline" style="background:black; color: #fff">black</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$round</code></th><td data-label="desc"><p>Round stroke linecap and linejoin</p></td><td data-label="type"><code>Boolean</code></td><td data-label="default"><code>false</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.myclass {
   background-image: chevron-data-uri(right);
   background-repeat: no-repeat;
   background-position: left center;
@@ -69,10 +69,10 @@
     $encoded: &#39;&#39;;
     $slice: 2000;
     $index: 0;
-    $loops: ceil(str-length($svg) / $slice);
+    $loops: math.ceil(math.div(string.length($svg), $slice));
 
     @for $i from 1 through $loops {
-        $chunk: str-slice($svg, $index, $index + $slice - 1);
+        $chunk: string.slice($svg, $index, $index + $slice - 1);
         $chunk: _svg-data-uri-str-replace($chunk, &#39;&quot;&#39;, &quot;&#39;&quot;);
         $chunk: _svg-data-uri-str-replace($chunk, &#39;&lt;&#39;, &#39;%3C&#39;);
         $chunk: _svg-data-uri-str-replace($chunk, &#39;&gt;&#39;, &#39;%3E&#39;);
@@ -83,7 +83,7 @@
     }
 
     @return url(&quot;data:image/svg+xml,#{$encoded}&quot;);
- }" data-collapsed="@function svg-data-uri($svg) { ... }"><code>@function svg-data-uri($svg) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_svg-data-uri.scss#L8-L26" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>URL-encode SVG markup for use as inline CSS content/uri</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$svg</code></th><td data-label="desc"><p>SVG markup to encode</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="http://codepen.io/jakob-e/pen/doMoML">http://codepen.io/jakob-e/pen/doMoML</a></li></ul><h3 class="item__sub-heading">Author</h3><ul class="list-unstyled"><li><p>Jakob Eriksen</p></li></ul></section><section class="main__item container item" id="undefined-function-triangle-data-uri"><h3 class="item__heading"><a class="item__name" href="#function-triangle-data-uri">triangle-data-uri</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { 
+ }" data-collapsed="@function svg-data-uri($svg) { ... }"><code>@function svg-data-uri($svg) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_svg-data-uri.scss#L14-L32" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>URL-encode SVG markup for use as inline CSS content/uri</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$svg</code></th><td data-label="desc"><p>SVG markup to encode</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>scss</code></pre></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="http://codepen.io/jakob-e/pen/doMoML">http://codepen.io/jakob-e/pen/doMoML</a></li></ul><h3 class="item__sub-heading">Author</h3><ul class="list-unstyled"><li><p>Jakob Eriksen</p></li></ul></section><section class="main__item container item" id="undefined-function-triangle-data-uri"><h3 class="item__heading"><a class="item__name" href="#function-triangle-data-uri">triangle-data-uri</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { 
     // Default size
     @if $width == null and $height == null {
         $width : 16;
@@ -96,28 +96,28 @@
     }
 
     // Strip units
-    $width : $width / ($width * 0 + 1);
-    $height: $height / ($height * 0 + 1);
+    $width : math.div($width, $width * 0 + 1);
+    $height: math.div($height, $height * 0 + 1);
 
     // Convert color to RGB
-    @if type-of($color) == color {
-        $color: &#39;rgb%28#{red($color)}, #{green($color)}, #{blue($color)}%29&#39;;
+    @if meta.type-of($color) == color {
+        $color: &#39;rgb%28#{color.red($color)}, #{color.green($color)}, #{color.blue($color)}%29&#39;;
     }
 
     // Polygon points
     $polygon-points: &#39;&#39;;
 
     @if $direction == up {
-        $polygon-points: &#39;0,#{$height} #{$width},#{$height} #{$width / 2},0&#39;;
+        $polygon-points: &#39;0,#{$height} #{$width},#{$height} #{$width * 0.5},0&#39;;
     }
     @else if $direction == down {
-        $polygon-points: &#39;0,0 #{$width},0 #{$width / 2},#{$height}&#39;;
+        $polygon-points: &#39;0,0 #{$width},0 #{$width * 0.5},#{$height}&#39;;
     }
     @else if $direction == right {
-        $polygon-points: &#39;0,0 0,#{$height} #{$width},#{$height / 2}&#39;;
+        $polygon-points: &#39;0,0 0,#{$height} #{$width},#{$height * 0.5}&#39;;
     }
     @else if $direction == left {
-        $polygon-points: &#39;#{$width},0 #{$width},#{$height} 0,#{$height / 2}&#39;;
+        $polygon-points: &#39;#{$width},0 #{$width},#{$height} 0,#{$height * 0.5}&#39;;
     }
 
     @if $polygon-points == &#39;&#39; {
@@ -127,7 +127,7 @@
         // Unencoded SVG: &lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; version=&#39;1.1&#39; width=&#39;#{$width}&#39; height=&#39;#{$height}&#39; viewBox=&#39;0 0 #{$width} #{$height}&#39;&gt;&lt;polygon points=&#39;#{$polygon-points}&#39; style=&#39;fill: #{$color}&#39;&gt;&lt;/polygon&gt;&lt;/svg&gt;
         @return url(&quot;data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; version=&#39;1.1&#39; width=&#39;#{$width}&#39; height=&#39;#{$height}&#39; viewBox=&#39;0 0 #{$width} #{$height}&#39;%3E%3Cpolygon points=&#39;#{$polygon-points}&#39; style=&#39;fill: #{$color}&#39;%3E%3C/polygon%3E%3C/svg%3E&quot;);
     }
- }" data-collapsed="@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { ... }"><code>@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_triangle-data-uri.scss#L21-L65" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generates a triangle SVG element and applies it as a background image.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of triangle</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of triangle (px)</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of triangle (px)</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of triangle</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code class="color-preview--inline" style="background:black; color: #fff">black</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.myclass {
+ }" data-collapsed="@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { ... }"><code>@function triangle-data-uri($direction, $width: 16px, $height: 16px, $color: black) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_triangle-data-uri.scss#L25-L69" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generates a triangle SVG element and applies it as a background image.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of triangle</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of triangle (px)</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of triangle (px)</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of triangle</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code class="color-preview--inline" style="background:black; color: #fff">black</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>URL-encoded SVG data uri</p></div><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>.myclass {
   background-image: triangle-data-uri(right);
   background-repeat: no-repeat;
   background-position: left center;
@@ -136,16 +136,16 @@
 .myclass {
   background: triangle-data-uri(right) no-repeat left center;
 }</code></pre></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>triangle-data-uri: #{$direction} is not a valid direction</p></li></ul><h3 class="item__sub-heading">Author</h3><ul class="list-unstyled"><li><p>John Hildenbiddle (@jhildenbiddle)</p></li></ul></section></section><section class="main__sub-section" id="undefined-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="undefined-mixin-fluid-prop"><h3 class="item__heading"><a class="item__name" href="#mixin-fluid-prop">fluid-prop</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin fluid-prop($fluid, $min, $max) { 
-    $fluid-unitless: $fluid / ($fluid * 0 + 1);
-    $dimension     : if(unit($fluid) == &#39;vh&#39;, &#39;height&#39;, &#39;width&#39;);
-    $min-breakpoint: if(unit($min) == &#39;rem&#39;, $min / ($min * 0 + 1) * 1em, $min) / $fluid-unitless * 100;
+    $fluid-unitless: math.div($fluid, $fluid * 0 + 1);
+    $dimension     : if(math.unit($fluid) == &#39;vh&#39;, &#39;height&#39;, &#39;width&#39;);
+    $min-breakpoint: math.div(if(math.unit($min) == &#39;rem&#39;, math.div($min, $min * 0 + 1) * 1em, $min), $fluid-unitless) * 100;
 
     @media (max-#{$dimension}: #{$min-breakpoint}) {
         #{$property}: $min;
     }
 
     @if $max {
-        $max-breakpoint: if(unit($max) == &#39;rem&#39;, $max / ($max * 0 + 1) * 1em, $max) / $fluid-unitless * 100;
+        $max-breakpoint: math.div(if(math.unit($max) == &#39;rem&#39;, math.div($max, $max * 0 + 1) * 1em, $max), $fluid-unitless) * 100;
 
         @media (min-#{$dimension}: #{$max-breakpoint}) {
             #{$property}: $max;
@@ -153,18 +153,18 @@
     }
 
     #{$property}: $fluid;
- }" data-collapsed="@mixin fluid-prop($fluid, $min, $max) { ... }"><code>@mixin fluid-prop($fluid, $min, $max) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_fluid-prop.scss#L19-L37" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Fluid viewport-based property values with min/max values</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$fluid</code></th><td data-label="desc"><p>Viewport-based size (vh|vw)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$min</code></th><td data-label="desc"><p>Minimum property value (px|rem)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$max</code></th><td data-label="desc"><p>Maximum property value (px|rem) (optional)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>px .myclass {</p></div><pre class="example__code language-scss"><code>  @include fluid-prop(font-size, 5vw, 16px, 48px);
+ }" data-collapsed="@mixin fluid-prop($fluid, $min, $max) { ... }"><code>@mixin fluid-prop($fluid, $min, $max) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_fluid-prop.scss#L21-L39" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Fluid viewport-based property values with min/max values</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$fluid</code></th><td data-label="desc"><p>Viewport-based size (vh|vw)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$min</code></th><td data-label="desc"><p>Minimum property value (px|rem)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$max</code></th><td data-label="desc"><p>Maximum property value (px|rem) (optional)</p></td><td data-label="type"><code>Number</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><div class="example__description"><p>px .myclass {</p></div><pre class="example__code language-scss"><code>  @include fluid-prop(font-size, 5vw, 16px, 48px);
 }</code></pre></div><div class="item__example example"><div class="example__description"><p>rem .myclass {</p></div><pre class="example__code language-scss"><code>  @include fluid-prop(font-size, 5vw, 1rem, 3rem);
 }</code></pre></div><h3 class="item__sub-heading">Links</h3><ul class="list-unstyled"><li><a href="https://css-tricks.com/snippets/sass/viewport-sized-typography-minimum-maximum-sizes/">Viewport Sized Typography with Minimum and Maximum Sizes (css-tricks.com)</a></li><li><a href="https://codepen.io/aaronbarker/full/zZroxL">Concept visualizer (codepen.io)</a></li></ul><h3 class="item__sub-heading">Authors</h3><ul class="list-unstyled"><li><p>John Hildenbiddle</p></li><li><p>Eduardo Boucas (@eduardoboucas) - initial concept (see link)</p></li></ul></section><section class="main__item container item" id="undefined-mixin-mq"><h3 class="item__heading"><a class="item__name" href="#mixin-mq">mq</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin mq($mq-list, $mq-map) { 
-    $mq-feature   : if(length($mq-list) == 2, nth($mq-list, 1), min-width);
-    $mq-breakpoint: if(length($mq-list) == 2, nth($mq-list, 2), $mq-list);
+    $mq-feature   : if(list.length($mq-list) == 2, list.nth($mq-list, 1), min-width);
+    $mq-breakpoint: if(list.length($mq-list) == 2, list.nth($mq-list, 2), $mq-list);
     $mq           : false;
 
     @if $mq-breakpoint == landscape or $mq-breakpoint == portrait {
         $mq: &quot;(orientation: #{$mq-breakpoint})&quot;;
     }
-    @else if map-has-key($mq-map, $mq-breakpoint) {
-        $mq: &quot;(#{$mq-feature}: #{map-get($mq-map, $mq-breakpoint)})&quot;;
+    @else if map.has-key($mq-map, $mq-breakpoint) {
+        $mq: &quot;(#{$mq-feature}: #{map.get($mq-map, $mq-breakpoint)})&quot;;
     }
 
     @if $mq {
@@ -175,7 +175,7 @@
     @else {
         @warn &#39;A breakpoint named &quot;#{$mq-breakpoint}&quot; is not available in the breakpoint map&#39;;
     }
- }" data-collapsed="@mixin mq($mq-list, $mq-map) { ... }"><code>@mixin mq($mq-list, $mq-map) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_mq.scss#L55-L75" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generate media query statement based on breakpoint map key/values</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$mq-list</code></th><td data-label="desc"><p>The breakpoint feature and/or name in $mq-map</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$mq-map</code></th><td data-label="desc"><p>The map containing breakpoint name:value pairs.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Content</h3><p>This mixin allows extra content to be passed (through the <code>@content</code> directive).</p><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>/* Defaults */
+ }" data-collapsed="@mixin mq($mq-list, $mq-map) { ... }"><code>@mixin mq($mq-list, $mq-map) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_mq.scss#L58-L78" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Generate media query statement based on breakpoint map key/values</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$mq-list</code></th><td data-label="desc"><p>The breakpoint feature and/or name in $mq-map</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$mq-map</code></th><td data-label="desc"><p>The map containing breakpoint name:value pairs.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Example</h3><div class="item__example example"><pre class="example__code language-scss"><code>/* Defaults */
 $breakpoints: (
     xsmall : 26em,
     small  : 30em,
@@ -220,8 +220,8 @@ body {
     }
 
     // Default to px for unitless values
-    $width : if(unitless($width), $width * 1px, $width);
-    $height: if(unitless($height), $height * 1px, $height);
+    $width : if(math.is-unitless($width), $width * 1px, $width);
+    $height: if(math.is-unitless($height), $height * 1px, $height);
 
     content: &#39;&#39;;
     width: 0;
@@ -230,32 +230,32 @@ body {
     @if $direction == &quot;up&quot; {
         border-top: 0;
         border-bottom: $height solid $color;
-        border-left: ($width / 2) solid transparent;
-        border-right: ($width / 2) solid transparent;
+        border-left: ($width * 0.5) solid transparent;
+        border-right: ($width * 0.5) solid transparent;
     }
     @else if $direction == &quot;down&quot; {
         border-top: $height solid $color;
         border-bottom: 0;
-        border-left: ($width / 2) solid transparent;
-        border-right: ($width / 2) solid transparent;
+        border-left: ($width * 0.5) solid transparent;
+        border-right: ($width * 0.5) solid transparent;
     }
     @else if $direction == &quot;left&quot; {
-        border-top: ($height / 2) solid transparent;
-        border-bottom: ($height / 2) solid transparent;
+        border-top: ($height * 0.5) solid transparent;
+        border-bottom: ($height * 0.5) solid transparent;
         border-left: 0;
         border-right: $width solid $color;
     }
     @else if $direction == &quot;right&quot; {
-        border-top: ($height / 2) solid transparent;
-        border-bottom: ($height / 2) solid transparent;
+        border-top: ($height * 0.5) solid transparent;
+        border-bottom: ($height * 0.5) solid transparent;
         border-left: $width solid $color;
         border-right: 0;
     }
- }" data-collapsed="@mixin triangle($direction: down, $width: 16px, $height: 16px, $color: currentColor) { ... }"><code>@mixin triangle($direction: down, $width: 16px, $height: 16px, $color: currentColor) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_triangle.scss#L11-L55" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Converts an element to an up, down, left or right triangle. This method of rendering a triangle allows CSS animations and transitions to be applied to triangle properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of triangle</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default"><code>down</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of triangle</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of triangle</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of triangle</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code>currentColor</code></td></tr></tbody></table><h3 class="item__sub-heading">Author</h3><ul class="list-unstyled"><li><p>John Hildenbiddle (@jhildenbiddle)</p></li></ul></section></section><section class="main__sub-section" id="undefined-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="undefined-variable-mq-breakpoints"><h3 class="item__heading"><a class="item__name" href="#variable-mq-breakpoints">mq-breakpoints</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$mq-breakpoints: (
+ }" data-collapsed="@mixin triangle($direction: down, $width: 16px, $height: 16px, $color: currentColor) { ... }"><code>@mixin triangle($direction: down, $width: 16px, $height: 16px, $color: currentColor) { ... }</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_triangle.scss#L13-L57" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Converts an element to an up, down, left or right triangle. This method of rendering a triangle allows CSS animations and transitions to be applied to triangle properties.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$direction</code></th><td data-label="desc"><p>Direction of triangle</p></td><td data-label="type"><code>Up</code> or <code>Down</code> or <code>Left</code> or <code>Right</code></td><td data-label="default"><code>down</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$width</code></th><td data-label="desc"><p>Width of triangle</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$height</code></th><td data-label="desc"><p>Height of triangle</p></td><td data-label="type"><code>Length</code></td><td data-label="default"><code>16px</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$color</code></th><td data-label="desc"><p>Color of triangle</p></td><td data-label="type"><code>Color</code></td><td data-label="default"><code>currentColor</code></td></tr></tbody></table><h3 class="item__sub-heading">Author</h3><ul class="list-unstyled"><li><p>John Hildenbiddle (@jhildenbiddle)</p></li></ul></section></section><section class="main__sub-section" id="undefined-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="undefined-variable-mq-breakpoints"><h3 class="item__heading"><a class="item__name" href="#variable-mq-breakpoints">mq-breakpoints</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$mq-breakpoints: (
     xsmall : 26em, // 416px / phone @ portrait
     small  : 30em, // 480px / phone @ landscape / small tablet (portrait)
     medium : 48em, // 768px / small tablet (landscape) / large tablet (portrait)
     large  : 64em, // 1024px / large tablet (landscape) / small desktop
     xlarge : 80em, // 1280px / standard desktop
     xxlarge: 100em // 1600px / large desktop
-) !default;</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_mq.scss#L2-L9" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Default breakpoint map for mq() mixin</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#undefined-mixin-mq"><code>mq</code></a></li></ul></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --> <a class="project-info__name" href="https://github.com/jhildenbiddle/sass-utilities">Sass-utilities</a><!-- Version --> <span class="project-info__version">- v0.0.4</span><!-- License --> <span class="project-info__license">, under MIT</span></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
+) !default;</code></pre><a href="https://github.com/jhildenbiddle/sass-utilities/tree/master/_mq.scss#L5-L12" class="item__source-link" target="_blank">View source</a></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Default breakpoint map for mq() mixin</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#undefined-mixin-mq"><code>mq</code></a></li></ul></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --> <a class="project-info__name" href="https://github.com/jhildenbiddle/sass-utilities">Sass-utilities</a><!-- Version --> <span class="project-info__version">- v0.0.4</span><!-- License --> <span class="project-info__license">, under MIT</span></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
