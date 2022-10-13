@@ -11,11 +11,13 @@
 /// @param {Number} $min   - Minimum property value (px|rem)
 /// @param {Number} $max   - Maximum property value (px|rem) (optional)
 ///
-/// @example scss - px .myclass {
+/// @example scss - px
+/// .myclass {
 ///   @include fluid-prop(font-size, 5vw, 16px, 48px);
 /// }
 ///
-/// @example scss - rem .myclass {
+/// @example scss - rem
+/// .myclass {
 ///   @include fluid-prop(font-size, 5vw, 1rem, 3rem);
 /// }
 @mixin fluid-prop($property, $fluid, $min, $max: false) {
