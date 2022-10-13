@@ -30,10 +30,12 @@
     "prepare": "npm run build",
     "build": "sassdoc **/*.scss",
     "start": "npm run build",
-    "version": "npm run build && git add -A docs"
+    "test": "jest",
+    "version": "npm run build && npm t && git add -A docs"
   },
   "devDependencies": {
-    "sass": "^1.54.0",
+    "jest": "^29.1.2",
+    "sass": "^1.55.0",
     "sassdoc": "^2.7.4"
   }
 }

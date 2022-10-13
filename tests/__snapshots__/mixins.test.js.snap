@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fluid-prop Compile 1`] = `
+".myclass {
+  font-size: 5vw;
+}
+@media (max-width: 320px) {
+  .myclass {
+    font-size: 16px;
+  }
+}
+@media (min-width: 960px) {
+  .myclass {
+    font-size: 48px;
+  }
+}"
+`;
+
+exports[`mq Compile - Defaults 1`] = `
+"@media screen and (min-width: 30em) {
+  .myclass {
+    color: red;
+  }
+}"
+`;
+
+exports[`mq Compile - feature and value as list 1`] = `
+"@media screen and (max-width: 48em) {
+  .myclass {
+    color: green;
+  }
+}"
+`;
+
+exports[`mq Compile - multiple conditions via nessted queries 1`] = `
+"@media screen and (min-width: 30em) and (orientation: landscape) {
+  .myclass {
+    color: red;
+  }
+}
+@media screen and (min-width: 30em) and (orientation: portrait) {
+  .myclass {
+    color: blue;
+  }
+}"
+`;
+
+exports[`triangle Compile 1`] = `
+".myclass {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 16px solid currentColor;
+  border-bottom: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}"
+`;
